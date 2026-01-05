@@ -1,0 +1,39 @@
+services:
+    server:
+        build: ./api
+        container_name: api
+        # environment:
+        #     NODE_ENV: production
+        env_file: .env
+        # restart: always
+        ports:
+            - '8080:8080'
+        volumes:
+            - ./api:/app
+        depends_on:
+            - db
+              # condition: service_healthy
+        networks:
+            - internal
+    db:
+        image: postgres:16
+        container_name: database
+        # restart: always
+        env_file: .env
+        volumes:
+            - ./db/schemas:/docker-entrypoint-initdb.d
+            - db-data:/var/lib/postgresql/data
+        # healthcheck:
+        #     test: ['CMD', 'pg_isready']
+        #     interval: 10s
+        #     timeout: 5s
+        #     retries: 5
+        networks:
+            - internal
+
+volumes:
+    db-data:
+
+networks:
+    internal:
+        driver: bridge
