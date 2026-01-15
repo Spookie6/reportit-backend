@@ -12,3 +12,11 @@ export async function getAll() {
     const result = await pool.query('SELECT * FROM threads');
     return result.rows;
 }
+
+export async function getMessagesByThreadId(threadId) {
+    const result = await pool.query(
+        'SELECT * FROM bericht WHERE thread_id = $1 ORDER BY tijdstip ASC',
+        [threadId]
+    );
+    return result.rows;
+}

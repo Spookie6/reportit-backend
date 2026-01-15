@@ -5,7 +5,7 @@ import { register, login, verify } from '../controllers/auth.controllers.js';
 
 router.post('/register', register);
 router.post('/login', login);
-router.post('/verify', verify);
+router.get('/verify', verify);
 
 router.get(
     '/me',

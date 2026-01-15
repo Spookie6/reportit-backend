@@ -5,7 +5,7 @@ const mailerSend = new MailerSend({
 });
 
 export async function sendVerificationEmail(user, token) {
-    const verificationLink = `${process.env.CLIENT_URL}/auth/verify-email?token=${token}`;
+    const verificationLink = `${process.env.CLIENT_URL}/auth/verify?token=${token}`;
 
     const sentFrom = new Sender(
         process.env.EMAIL_FROM,

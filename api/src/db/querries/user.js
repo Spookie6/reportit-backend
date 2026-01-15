@@ -26,3 +26,7 @@ export async function createUser(name, email, password) {
     );
     return res.rows.length ? res.rows[0] : null;
 }
+
+export async function clearUsers() {
+    await pool.query('DELETE FROM gebruiker');
+}

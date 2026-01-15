@@ -6,9 +6,9 @@ passport.use(
     new Strategy({
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         secretOrKey: process.env.JWT_SECRET,
-    }, (payload, done) => {
+    }, async (payload, done) => {
         try {
-            const user = User.getUserById(payload.id);
+            const user = await User.getUserById(payload.id);
             if (!user) return done(null, false);
             return done(null, user);
         } catch (error) {
