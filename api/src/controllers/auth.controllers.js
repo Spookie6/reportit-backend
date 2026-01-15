@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
 import * as User from '../db/querries/user.js';
+import { sendVerificationEmail } from '../util/mailersend.js';
 
 function createToken(user) {
     return jwt.sign({ id: user.gebruiker_id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '7d' });
@@ -9,37 +9,6 @@ function createToken(user) {
 
 function createEmailVerificationToken(user) {
     return jwt.sign({ id: user.gebruiker_id, email: user.email }, process.env.EMAIL_VERIFICATION_SECRET, { expiresIn: '15m' });
-}
-
-const transporter = nodemailer.createTransport({
-    host: 'gmail',
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-    },
-    tls: {
-        rejectUnauthorized: false,
-    },
-});
-
-export async function testTransporter() {
-    try {
-        await transporter.verify();
-        console.log('Email transporter is ready');
-    } catch (error) {
-        console.error('Error with email transporter:', error);
-    }
-}
-
-async function sendVerificationEmail(user, token) {
-    const verificationLink = `http://localhost:8080/auth/verify-email?token=${token}`;
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: user.email,
-        subject: 'Verify your email',
-        text: `Click the following link to verify your email: ${verificationLink}`,
-    };
-    await transporter.sendMail(mailOptions);
 }
 
 export async function register(req, res) {

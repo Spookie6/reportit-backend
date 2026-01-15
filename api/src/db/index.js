@@ -9,13 +9,20 @@ const pool = new Pool({
     port: process.env.POSTGRES_PORT,
 });
 
-(async () => {
+async function connectWithRetry(retries = 5) {
     try {
         await pool.connect();
         console.log('Connected to the database successfully.');
-    } catch (error) {
-        console.error('Database connection error:', error);
+    } catch (err) {
+        console.error('DB connection failed, retrying...', err.code);
+        if (retries > 0) {
+            await new Promise(r => setTimeout(r, 3000));
+            return connectWithRetry(retries - 1);
+        }
+        throw err;
     }
-})();
+}
+
+connectWithRetry();
 
 export default pool;
