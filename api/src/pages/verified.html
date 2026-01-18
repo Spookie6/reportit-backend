@@ -3,23 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Verification</title>
+    <title>Reportit</title>
 </head>
 <body>
     <h1>Email Verified Successfully!</h1>
-    <p>Your email has been verified. You can now leave this page.</p
+    <p>You can now leave this page.</p
 </body>
 
 <style>
     * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
         font-family: Arial, sans-serif;
         text-align: center;
     }
 
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
     body {
         background-color: #323232;
+        background-image: url('./../../assets/background_image.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover; /* 🔑 This makes it fill the screen */
         color: #ccc;
-        margin: 50px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1 {
+        padding-bottom: 20px;
+    }
+
+    p {
+        padding-bottom: 10px;
     }
 </style>
+
 </html>
