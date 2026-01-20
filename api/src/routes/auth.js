@@ -10,7 +10,13 @@ router.get('/verify', verify);
 router.get(
     '/me',
     passport.authenticate('jwt', { session: false }),
-    (req, res) => res.json({ user: req.user })
+    (req, res) => res.json({
+        id: req.user.gebruiker_id,
+        profilePic: req.user.profielfoto,
+        username: req.user.gebruikernaam,
+        email: req.user.email,
+        createdAt: req.user.datum_aanmaak,
+    })
 );
 
 export default router;
