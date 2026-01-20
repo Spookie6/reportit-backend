@@ -13,7 +13,7 @@ router.get(
     (req, res) => res.json({
         id: req.user.gebruiker_id,
         profilePic: req.user.profielfoto,
-        username: req.user.gebruikernaam,
+        username: req.user.gebruikersnaam,
         email: req.user.email,
         createdAt: req.user.datum_aanmaak,
     })
